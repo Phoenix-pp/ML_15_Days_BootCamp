@@ -9,34 +9,6 @@ url="https://github.com/sjwhitworth/golearn/blob/master/examples/datasets/tennis
 data=pd.read_csv(url)
 
 
-"""
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Aug 20 18:24:20 2022
-
-@author: Pooja
-"""
-"""
-
-#import all the packagesimport pandas as pdimport numpy as npimport matplotlib.pyplot as pltfrom sklearn.naive_bayes import GaussianNBfrom sklearn.preprocessing import LabelEncoderfrom sklearn.preprocessing import Normalizerfrom sklearn.model_selection import train_test_splitfrom sklearn.metrics import confusion_matrix,accuracy_scoreimport sklearn.metricsimport statsmodels.api as smimport plotly.express as px #for plotting the scatter plotimport seaborn as sns #For plotting the dataset in seabornsns.set(style='whitegrid')import warningswarnings.filterwarnings('ignore')
-
-#import all the packages
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.naive_bayes import GaussianNB
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import Normalizer
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix,accuracy_score
-import sklearn.metrics
-import statsmodels.api as sm
-import plotly.express as px #for plotting the scatter plot
-import seaborn as sns #For plotting the dataset in seaborn
-sns.set(style='whitegrid')
-import warnings
-warnings.filterwarnings('ignore')
-
 #Read the excel file
 data=pd.read_csv('play_tennis.csv')
 print(data.head(5))
@@ -60,15 +32,6 @@ data['humidity_encoded']= le.fit_transform(data['humidity'])
 data['wind_encoded']= le.fit_transform(data['wind'])
 data['play_encoded']= le.fit_transform(data['play'])
 print(data.head(5))
-
-#Feature selection:
-
-# heatmap of correlation matrix with annotations in 2 different shades
-cols=['outlook_encoded','temp_encoded','humidity_encoded','wind_encoded','play_encoded']
-cor=data[cols].corr()
-hm1 = sns.heatmap(cor, annot = True,cmap='YlGnBu')
-hm1.set(xlabel='\nFeatures', ylabel='Features\t', title = "Correlation matrix of data\n")
-plt.show()
 
 
 #Splitting the data into testing and training data:
@@ -94,14 +57,6 @@ print(x_train)
 print("____________________________________________________________________________")
 print("",scaled_x_train)
 ## Before
-# View the relationships between variables; color code by play
-before= sns.pairplot(data[cols], hue= 'play_encoded')
-before.fig.suptitle('Pair Plot of the dataset Before scaling', y=1.08)
-## After:
-data2= pd.DataFrame(data= np.c_[scaled_x_train, y_train],
-columns= features + ['play_encoded'])
-after= sns.pairplot(data2, hue= 'play_encoded')
-after.fig.suptitle('Pair Plot of the dataset After scaling', y=1.08)
 
 #Training the model
 
@@ -122,14 +77,6 @@ accuracy = accuracy_score(y_test, y_prediction)
 print(accuracy)
 ConfusionMatrix=confusion_matrix(y_test,y_prediction)
 print(ConfusionMatrix)
-ax=sns.heatmap(ConfusionMatrix,annot=True,cmap="YlGnBu")
-ax.set_title('Confusion matrix')
-ax.set_xlabel('Predicted values')
-ax.set_ylabel('Actual values')
-#Ticket labels:
-ax.xaxis.set_ticklabels(['No','Yes'])
-ax.xaxis.set_ticklabels(['No','Yes'])
-plt.show()
 
 #Classification report:
 
